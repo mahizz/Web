@@ -8,14 +8,19 @@
   <form class="col-md-12">
     <div class="form-group">
       <label for="artist-name">Name</label>
-      <input class="form-control" name="artist-name" [(ngModel)]="artist.name" placeholder="Name"/>
+      <input class="form-control" name="artist-name" [disabled]="!canChange()" [(ngModel)]="artist.name" placeholder="Name"/>
     </div>
     <div class="form-group">
       <label for="artist-email">Genre</label>
-      <input class="form-control" name="artist-genre" [(ngModel)]="artist.genre" placeholder="Genre"/>
+      <input class="form-control" name="artist-genre" [disabled]="!canChange()" [(ngModel)]="artist.genre" placeholder="Genre"/>
     </div>
-    <button class="btn btn-info" *ngIf="artist._id" (click)="updateArtist(artist)">Update</button>
-    <button class="btn btn-danger" *ngIf="artist._id" (click)="deleteArtist(artist._id)">Delete</button>
-    <button class="btn btn-danger" *ngIf="artist._id"  [routerLink]="[artist._id,'addAlbum']">Add Album</button>
+    <div class="admin_buttons" *ngIf="userService.checkAccess()">
+      <button class="btn btn-info" *ngIf="artist._id" (click)="updateArtist(artist)">Update</button>
+      <button class="btn btn-danger" *ngIf="artist._id" (click)="deleteArtist(artist._id)">Delete</button>
+      <button class="btn btn-danger" *ngIf="artist._id"  [routerLink]="[artist._id,'addAlbum']">Add Album</button>
+    </div>
+    <div style="margin-top: 10px;">
+      <button class="btn btn-primary" *ngIf="artist._id"  [routerLink]="[artist._id,'Albums']">Show Albums</button>
+    </div>
   </form>
 </div>

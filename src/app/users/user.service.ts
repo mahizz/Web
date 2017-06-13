@@ -1,10 +1,5 @@
 import { Injectable } from '@angular/core';
-
-interface User {
-	id: Number
-	name: String
-	admin: Boolean
-}
+import { User } from './User'
 
 @Injectable()
 export class UserService {

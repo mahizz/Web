@@ -7,6 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgUploaderModule } from 'ngx-uploader';
 
 import { UserService } from './users/user.service';
+import { AdminGuardian } from './guards/adminGuardian';
 
 import { AppComponent } from './app.component';
 import { ArtistAddComponent } from './artists/artist-add/artist-add.component';
@@ -23,9 +24,9 @@ import { AlbumsListComponent } from './albums/albums-list/albums-list.component'
 const appRoutes: Routes = [
   { path: '', component: AlbumsListComponent },
   { path: 'Artists', component: ArtistListComponent },
-  { path: 'addArtist', component: ArtistAddComponent },
-  { path: 'Artists/:artistId/addAlbum', component: AlbumAddComponent },
+  { path: 'AddArtist', component: ArtistAddComponent, canActivate: [AdminGuardian] },
   { path: 'Artists/:artistId/Albums', component: AlbumsOfArtistListComponent },
+  { path: 'Artists/:artistId/addAlbum', component: AlbumAddComponent, canActivate: [AdminGuardian] }
 ];
 
 @NgModule({
@@ -49,7 +50,10 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     NgUploaderModule
   ],
-  providers: [ UserService ],
+  providers: [ 
+    UserService,
+    AdminGuardian
+  ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

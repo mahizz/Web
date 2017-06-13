@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Artist } from '../artist';
 import { ArtistService } from '../artist.service';
+import { UserService } from '../../users/user.service'
 
 @Component({
   selector: 'artist-details',
@@ -20,7 +21,8 @@ export class ArtistDetailsComponent  {
   @Input()
   deleteHandler: Function;
 
-  constructor (private artistService: ArtistService) {}
+  constructor (private artistService: ArtistService,
+                private userService: UserService) {}
 
   createArtist(artist: Artist) {
     this.artistService.createArtist(artist).then((newArtist: Artist) => {
@@ -43,6 +45,10 @@ export class ArtistDetailsComponent  {
 
   goToProductDetails(id) {
 
+  }
+
+  canChange(): Boolean {
+    return this.userService.checkAccess();
   }
 
 }

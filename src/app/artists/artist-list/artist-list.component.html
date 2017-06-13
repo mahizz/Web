@@ -5,7 +5,7 @@
       <li class="list-group-item"
         *ngFor="let artist of artists"
         (click)="selectArtist(artist)"
-        [class.active]="artist === selectedArtists">
+        [class.active]="artist === selectedArtist">
           <b>{{artist.name}} </b>
         <div class="pull-right"> 
           {{artist.genre}}

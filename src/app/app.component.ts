@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { UserService } from './users/user.service'
+import { User } from './users/User'
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,7 @@ export class AppComponent {
 
 	passInput: String;
 	loginInput: String;
-	user: Object = null;
+	user: User = null;
 
 	constructor(private userService: UserService) {
 		this.user = userService.getUser()
@@ -38,7 +39,11 @@ export class AppComponent {
 		}
 	}
 
-	userLoged():Boolean {
+	userLoged(): Boolean {
 		return (this.user == null) ? false : true;
+	}
+
+	checkAccess(): Boolean {
+		return (this.user == null) ? false : this.user.admin;
 	}
 }
