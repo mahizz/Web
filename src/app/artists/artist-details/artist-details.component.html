@@ -1,0 +1,21 @@
+<div *ngIf="artist" class="row">
+  <div class="col-md-12">
+    <h2 *ngIf="artist._id">Artist Details</h2>
+    <h2 *ngIf="!artist._id">New artist</h2>
+  </div>
+</div>
+<div *ngIf="artist" class="row">
+  <form class="col-md-12">
+    <div class="form-group">
+      <label for="artist-name">Name</label>
+      <input class="form-control" name="artist-name" [(ngModel)]="artist.name" placeholder="Name"/>
+    </div>
+    <div class="form-group">
+      <label for="artist-email">Genre</label>
+      <input class="form-control" name="artist-genre" [(ngModel)]="artist.genre" placeholder="Genre"/>
+    </div>
+    <button class="btn btn-info" *ngIf="artist._id" (click)="updateArtist(artist)">Update</button>
+    <button class="btn btn-danger" *ngIf="artist._id" (click)="deleteArtist(artist._id)">Delete</button>
+    <button class="btn btn-danger" *ngIf="artist._id"  [routerLink]="[artist._id,'addAlbum']">Add Album</button>
+  </form>
+</div>

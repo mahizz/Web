@@ -1,0 +1,41 @@
+<div class="container">
+    {{diagnostic}}
+<h1>Album Form</h1>
+    <form (ngSubmit)="onSubmit()" #albumForm="ngForm">
+        <div class="form-group">
+            <label for="title">title</label>
+            <input type="text" class="form-control" id="title" 
+                    required
+                    [(ngModel)]="model.title" name="title">
+        </div>
+        <div class="form-group">
+            <label for="genre">genre</label>
+            <input type="text" class="form-control" id="genre" 
+                    required
+                    [(ngModel)]="model.genre" name="genre">
+        </div>
+            <div class="form-group">
+            <label for="release">release</label>
+            <input type="text" class="form-control" id="release" 
+                    required
+                    [(ngModel)]="model.release" name="release">
+        </div>
+        <button type="submit" class="btn btn-success" [disabled]="!albumForm.form.valid">Submit</button>
+        <button type="button" class="btn btn-default" (click)="newAlbum(); albumForm.reset()">New Album</button>
+    </form>
+    <image-upload [(getCoverID)]="coverID"  (CoverIDChange)="handleCoverIDChange($event)">
+
+    </image-upload>
+
+    <br>
+    <ul>
+        <song-list *ngFor="let song of list"
+              [song]="song">
+        </song-list>
+    </ul>
+    <div>
+
+    <song-form [songs]="list">
+    </song-form>
+
+</div>

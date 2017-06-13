@@ -1,0 +1,26 @@
+import Mongoose = require("mongoose");
+
+class db {
+    static mongooseInstance: any;
+    static mongooseConnection: Mongoose.Connection;
+
+    constructor () {
+        db.connect();
+    }
+
+    static connect (): Mongoose.Connection {
+        if(this.mongooseInstance) return this.mongooseInstance;
+
+        this.mongooseConnection  = Mongoose.connection;
+        this.mongooseConnection.once("open", () => {
+            console.log("Connected to mongodb.");
+        });
+        
+        let adress = process.env.MONGODB_URI | "mongodb://localhost/test";
+        this.mongooseInstance = Mongoose.connect(adress);
+        return this.mongooseInstance;
+    }
+}
+
+db.connect();
+export { db };
