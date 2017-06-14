@@ -8,6 +8,7 @@
 	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	  <ul class="nav navbar-nav">
 	    <li><a routerLink="/Artists" routerLinkActive="active">Artists</a></li>
+	    <li><a routerLink="/Albums" routerLinkActive="active">Albums</a></li>
 	    <li *ngIf="checkAccess()"><a routerLink="/AddArtist" routerLinkActive="active">Add Artist</a></li>
 	  </ul>
 	  <form *ngIf="!userLoged()" class="navbar-form navbar-right">

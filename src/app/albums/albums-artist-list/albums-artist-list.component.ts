@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Song } from '../../songs/song';
 import { Album } from '../album';
 import { AlbumService } from '../album.service';
+import { UserService } from '../../users/user.service'
 //import { AlbumDetailsComponent } from '../album-details/album-details.component';
 
 @Component({
@@ -18,7 +19,7 @@ export class AlbumsOfArtistListComponent implements OnInit {
   selectedAlbum: Album
   artistId: string
   songsList: Song[] = [];
-  constructor(private activatedRoute: ActivatedRoute,private albumService: AlbumService) { }
+  constructor(private activatedRoute: ActivatedRoute,private albumService: AlbumService,private userService: UserService) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -29,13 +30,34 @@ export class AlbumsOfArtistListComponent implements OnInit {
           this.albums = albums.map((album) => {
             return album;
           });
-          console.log(this.albums);
         });
   })
   }
 
+  private getIndexOfAlbum = (albumId: String) => {
+    return this.albums.findIndex((album) => {
+      return album._id === albumId;
+    });
+  }
+
   coverExist(object): Boolean { 
     return typeof(object) !== 'undefined';
+  }
+
+  deleteAlbum(albumId: String): void {
+    let id=albumId;
+    this.albumService.deleteAlbum(id).then(() => {
+        var idx = this.getIndexOfAlbum(id);
+        if (idx !== -1) {
+          this.albums.splice(idx, 1);
+          this.songsList = [];
+          this.selectedAlbum = null;
+        }
+    });
+  }
+  
+  canChange(): Boolean {
+    return this.userService.checkAccess();
   }
 
   selectAlbum(Album) {

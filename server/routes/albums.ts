@@ -1,13 +1,16 @@
 import { Request, Response, Router } from "express";
 import { album } from "./../db/models/albumModel";
+import { song } from "./../db/models/songModel";
+
 
 const albumsRouter: Router = Router();
 
 albumsRouter.get("/", (request: Request, response: Response) => {
-    album.find(function (err, albums) {
-      if (err) return response.json(err);
-      else response.json(albums);
-    })
+    album.find()
+    .populate('songs')
+    .exec(function(err, fullAlbum){
+        response.json(fullAlbum);
+    });
 });
 
 albumsRouter.get("/:id", (request: Request, response: Response) => {
@@ -33,13 +36,27 @@ albumsRouter.post("/", (request: Request, response: Response) => {
     console.log(request.body);
     temp.save(function (err) {
       if (err) response.json(err)
-      else response.json(temp); 
+      else response.json(temp) 
     })
 });
 
 albumsRouter.delete("/:id", (request: Request, response: Response) => {
-    album.remove({_id: request.params.id})
-    response.status(204).end();
+    let Id = request.params.id
+    album.findOne({ _id: request.params.id})
+    .exec(function(err, Album){
+        for (let temp of Album.songs) {
+            song.findByIdAndRemove({ _id: temp},(err) => {
+                  if (err) response.json(err).status(404).end()
+            })
+        }
+        album.findByIdAndRemove({ _id: Id},(err) => {
+          if (err) response.json(err).status(404).end()
+          else response.status(204).end(); 
+        })
+
+    });
 });
+
+
 
 export { albumsRouter };

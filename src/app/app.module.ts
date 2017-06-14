@@ -26,6 +26,7 @@ import { SongAlbumListComponent } from './songs/song-album-list/song-album-list.
 const appRoutes: Routes = [
   { path: '', component: MainComponent },
   { path: 'Artists', component: ArtistListComponent },
+  { path: 'Albums', component: AlbumsListComponent },
   { path: 'AddArtist', component: ArtistAddComponent, canActivate: [AdminGuardian] },
   { path: 'Artists/:artistId/Albums', component: AlbumsOfArtistListComponent },
   { path: 'Artists/:artistId/addAlbum', component: AlbumAddComponent, canActivate: [AdminGuardian] }

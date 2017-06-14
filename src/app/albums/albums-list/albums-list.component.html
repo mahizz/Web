@@ -1,21 +1,24 @@
 <div class="row">
   <div class="col-md-5">
-    <h2>Albums hej</h2>
+    <h2>Albums</h2>
     <ul class="list-group">
       <li class="list-group-item"
-        *ngFor="let album of albums">
+        *ngFor="let album of albums"
+        (click)="selectAlbum(album)"
+        [class.active]="album === selectedAlbum">
           <b>{{album.title}} </b>
-
-        <div class="pull-right"> 
+          <img *ngIf="coverExist(album.cover)" src="/assets/{{album.cover}}" alt="" height="80" width="80" />
           {{album.genre}}
-          {{album.release}}
+        <div class="pull-right"> 
+          
+          {{album.release | date:"y-MM-dd"}}
         </div>
       </li>
     </ul>
   </div>
   <div class="col-md-5 col-md-offset-2">
   <song-album-list
-  [songs]="selectedAlbum.songs">
+  [songs]="songsList">
   </song-album-list>
   </div>
 </div>

@@ -13,6 +13,9 @@
           
           {{album.release | date:"y-MM-dd"}}
         </div>
+        <div class="admin_buttons" *ngIf="userService.checkAccess()">
+          <button class="btn btn-danger" *ngIf="album._id" (click)="deleteAlbum(album._id)">Delete</button>
+        </div>
       </li>
     </ul>
   </div>

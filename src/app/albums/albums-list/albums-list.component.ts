@@ -1,6 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { Album } from '../album';
 import { AlbumService } from '../album.service';
+import { Song } from '../../songs/song';
 
 
 @Component({
@@ -14,6 +15,7 @@ export class AlbumsListComponent implements OnInit {
 
   albums: Album[]
   selectedAlbum: Album
+  songsList: Song[] = [];
   constructor(private albumService: AlbumService) { }
 
 
@@ -28,6 +30,11 @@ export class AlbumsListComponent implements OnInit {
   });
 
   }
+  
+  coverExist(object): Boolean { 
+    return typeof(object) !== 'undefined';
+  }
+
 
   private getIndexOfAlbum = (albumId: String) => {
     return this.albums.findIndex((album) => {
@@ -37,6 +44,7 @@ export class AlbumsListComponent implements OnInit {
 
   selectAlbum(album: Album) {
     this.selectedAlbum = album;
+    this.songsList = this.selectedAlbum.songs;
   }
 
 
