@@ -1,0 +1,11 @@
+<ul class="list-group">
+  <li class="list-group-item"
+    *ngFor="let song of songs">
+      <b>{{song.name}} </b>
+
+    <div class="pull-right"> 
+      {{song.year | date:"y-MM-dd"}}
+      {{song.length}}
+    </div>
+  </li>
+</ul>

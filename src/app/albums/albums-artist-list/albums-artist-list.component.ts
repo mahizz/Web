@@ -1,5 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Song } from '../../songs/song';
 import { Album } from '../album';
 import { AlbumService } from '../album.service';
 //import { AlbumDetailsComponent } from '../album-details/album-details.component';
@@ -16,6 +17,7 @@ export class AlbumsOfArtistListComponent implements OnInit {
   albums: Album[]
   selectedAlbum: Album
   artistId: string
+  songsList: Song[] = [];
   constructor(private activatedRoute: ActivatedRoute,private albumService: AlbumService) { }
 
   ngOnInit() {
@@ -38,5 +40,6 @@ export class AlbumsOfArtistListComponent implements OnInit {
 
   selectAlbum(Album) {
     this.selectedAlbum = Album;
+    this.songsList = this.selectedAlbum.songs;
   }
 }

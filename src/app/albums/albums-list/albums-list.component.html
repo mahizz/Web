@@ -5,7 +5,7 @@
       <li class="list-group-item"
         *ngFor="let album of albums">
           <b>{{album.title}} </b>
-          <img src="/assets/"+{{album.cover}} alt="" height="80" width="80">
+
         <div class="pull-right"> 
           {{album.genre}}
           {{album.release}}
@@ -14,11 +14,8 @@
     </ul>
   </div>
   <div class="col-md-5 col-md-offset-2">
-<!-- <album-details
-      [album]="selectedAlbum"
-      [createHandler]="addAlbum"
-      [updateHandler]="updateAlbum"
-      [deleteHandler]="deleteAlbum">
-    </album-details> -->
+  <song-album-list
+  [songs]="selectedAlbum.songs">
+  </song-album-list>
   </div>
 </div>
